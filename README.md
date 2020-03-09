@@ -12,9 +12,12 @@ Super Stretch Goals: Add in recommendations for stock to invest in.
 Scope: Allow user interaction through a command line, asking for input from the user for the code to calculate investments from day to day. 
 
 2/16 Hello World!
+
 2/23 Pick a stock API
+
 3/1 Find a way to implement the API into to the Python Project
-3/8 Parse API data, to take things that are relevant.
+
+3/8 Parse API data, to take things that are relevant. \n
 3/15 Manipulate stock data from API 
 3/22 Save the net gains from each day 
 3/29 Analyze net gains from single stock from each consecutive day 
