@@ -1,9 +1,10 @@
+# Importing libraries needed to use api, date data, saving variable, and pathing.
 from alpha_vantage.timeseries import TimeSeries
 from datetime import date, timedelta
 import pickle
 from os import path
+
 # Uses the API Key to request stock data with the stock symbol
-# Your key here
 key = 'SHBRA075RSEB7YVF'
 ts = TimeSeries(str(key))
 
@@ -12,25 +13,24 @@ def get_date():
     n = 3
     return date.today() - timedelta(days=n)
 
+# Prompts user for the stock symbol they would like to invest in.
 def ask_for_symbol():
-    ask_for_symbol.user_symbol = str(input('What stock symbol?')).upper()
+    ask_for_symbol.user_symbol = str(input('What stock symbol? (without $)')).upper()
 
-sym, meta = ts.get_daily(symbol='GOOG')
-print(sym['2020-05-01'])
-raw_data = str(sym[str(get_date())])
-# # Splits the output for parsing
-data = raw_data.split("'")
+#Gets the daily open and closing price of that stock.
+def get_daily(stock_symbol):
+    sym, meta = ts.get_daily(symbol=stock_symbol)
+    raw_data = str(sym[str(get_date())])
+    get_daily.data = raw_data.split("'")
 
-# Asks user for how many stocks they want to invest, might change later to save how many stocks
+# Asks user for how many stocks they want to invest,
 def start():
     start.input_start = int(input("How many stocks?"))
-    # ff = open("PortfolioVolume.txt", "a")
-    # ff.write('AAPL' + ':' + str(start.input_start) + '\n')
 
 # Creates variables to hold the open and close price of the selected stock.
 def get_openclose():
-    get_openclose.stock_open = float(data[3])
-    get_openclose.stock_close = float(data[15])
+    get_openclose.stock_open = float(get_daily.data[3])
+    get_openclose.stock_close = float(get_daily.data[15])
 
 # Creates variables to hold how much money (stock price * stock volume)
 def calc_real_money(stock_volume):
@@ -51,7 +51,8 @@ def net_file():
 
 # Goes through each function above this line
 def first_time_run():
-    #ask_for_symbol()
+    ask_for_symbol()
+    get_daily(ask_for_symbol.user_symbol)
     start()
     get_openclose()
     calc_real_money(start.input_start)
@@ -66,9 +67,10 @@ if path.exists('Dayrate.txt'):
 
     # Opening saved variables from first time run
     pickle_var = open('saved_vars.p', 'rb')
-    saved_stock_vol, gainz = pickle.load(pickle_var)
+    saved_stock_vol, gainz, saved_symbol = pickle.load(pickle_var)
 
     # Goes through the normal program again, removing the start function
+    get_daily(saved_symbol)
     get_openclose()
     calc_real_money(saved_stock_vol)
     print_net_gainz()
@@ -79,7 +81,9 @@ else:
 
     #Saving variables that were created
     pickle_var = open('saved_vars.p', 'wb')
-    pickle.dump([start.input_start, print_net_gainz.net_gainz], pickle_var)
+    pickle.dump([start.input_start, print_net_gainz.net_gainz, ask_for_symbol.user_symbol], pickle_var)
     pickle_var.close()
+
+
 
 
