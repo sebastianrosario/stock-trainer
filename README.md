@@ -42,3 +42,5 @@ Milestone 2: Saving the progress each day.
 Milestone 3: Saving variables from each launch
 
 Milestone 4: Saving stock symbols and stock volume from user input, usable on next launch
+
+App Explanation: The app starts by checking if the user has run the app before. This is done by checking if the file that the app creates on launch exists or not. It then prompts the user for a stock symbol and a stock volume which is saved between launches. The app then calls the stock API to retrieve the opening and closing price of the selected stock and sends that to a file called "Dayrate.txt". After the user has opened the application once, it no longer asks for the stock symbol or volume as it is saved and reloaded by using pickle. The daily calculations execute and the program ends. 
