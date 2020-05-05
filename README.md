@@ -1,5 +1,5 @@
 # stock-trainer
-A virtual investor where you get to choose the stocks and the volume of your portfolio. Made with Python.
+A virtual investor where you get to choose the stock and the volume of your portfolio. Made with Python.
 Draft 1 - Stock Trainer
 
 Create an interaction between the python program and stock market data through Alpha Vantage API so that the user can follow a specific stock, virtually invest in it, see their change and other data about it. 
