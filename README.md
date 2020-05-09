@@ -1,5 +1,6 @@
 # stock-trainer
 "pip install alpha_vantage" to start
+
 A virtual investor where you get to choose the stock and the volume of your portfolio. Made with Python.
 Draft 1 - Stock Trainer
 
