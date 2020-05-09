@@ -39,7 +39,7 @@ def calc_real_money(stock_volume):
 
 # Prints the portfolio value and then finds the difference between the start and end.
 def print_net_gainz():
-    print(calc_real_money.portfolio_start, calc_real_money.portfolio_end)
+    print('The starting price was ' + str(calc_real_money.portfolio_start) +'\n' + 'The ending price was ' + str(calc_real_money.portfolio_end))
     print_net_gainz.net_gainz = calc_real_money.portfolio_end - calc_real_money.portfolio_start
     print(print_net_gainz.net_gainz)
 
@@ -63,9 +63,9 @@ def first_time_run():
 # different processes depending on the outcome
 if path.exists('Dayrate.txt'):
     #Confirms that the path exist, which is only created after you run the program for the first time
-    print('IT EXISTS')
+    print('Dayrate.txt exists')
 
-    # Opening saved variables from first time run
+    # Opening saved variables from first time run under new names
     pickle_var = open('saved_vars.p', 'rb')
     saved_stock_vol, gainz, saved_symbol = pickle.load(pickle_var)
 
@@ -74,6 +74,7 @@ if path.exists('Dayrate.txt'):
     get_openclose()
     calc_real_money(saved_stock_vol)
     print_net_gainz()
+    print("Your net income is "+ str(gainz+print_net_gainz.net_gainz))
     net_file()
 else:
     #Goes through the process of a first time run of the program
@@ -84,6 +85,5 @@ else:
     pickle.dump([start.input_start, print_net_gainz.net_gainz, ask_for_symbol.user_symbol], pickle_var)
     pickle_var.close()
 
-
-
+input("Press Enter to Exit")
 
